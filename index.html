@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  PORTFOLIO — single-file static site
+  Everything you need to edit is in [SQUARE BRACKETS].
+  Press Ctrl+F and search for "[" to find them all.
+  ============================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Serkan Ayaşan — Computer Engineering</title>
+<meta name="description" content="Serkan Ayaşan — computer engineering student. Projects, skills and contact.">
+
+<!-- How the link looks when shared -->
+<meta property="og:title" content="Serkan Ayaşan — Portfolio">
+<meta property="og:description" content="Computer engineering student. My projects and background.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- Theme tokens ---------- */
+:root{
+  --bg:#faf9f5; --panel:#ffffff; --rail:#f3f2ec;
+  --ink:#191917; --ink-2:#3d3c38; --muted:#75716a;
+  --line:#e6e3da; --line-2:#efece4;
+  --accent:#c96442; --accent-hover:#b0553a; --accent-soft:#f7ece6;
+  --shadow:0 1px 2px rgba(25,25,23,.05), 0 8px 24px -12px rgba(25,25,23,.12);
+  --radius:14px;
+}
+html[data-theme="dark"]{
+  --bg:#262624; --panel:#30302e; --rail:#1f1e1d;
+  --ink:#f7f6f2; --ink-2:#d8d5cc; --muted:#9b968b;
+  --line:#3d3c39; --line-2:#373633;
+  --accent:#d97757; --accent-hover:#e08a6d; --accent-soft:#3a2b24;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:15.5px; line-height:1.65; -webkit-font-smoothing:antialiased;
+  display:flex; min-height:100vh;
+}
+a{color:inherit; text-decoration:none}
+h1,h2,h3{font-family:'Source Serif 4',Georgia,serif; font-weight:600; letter-spacing:-.015em; line-height:1.2; margin:0}
+::selection{background:var(--accent-soft); color:var(--ink)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+
+/* ---------- Sidebar ---------- */
+.rail{
+  width:264px; flex-shrink:0; background:var(--rail);
+  border-right:1px solid var(--line);
+  padding:22px 16px; position:sticky; top:0; height:100vh;
+  display:flex; flex-direction:column; gap:26px;
+}
+.brand{display:flex; align-items:center; gap:11px; padding:0 8px}
+.mark{
+  width:32px; height:32px; border-radius:9px; flex-shrink:0;
+  background:var(--accent); color:#fff; display:grid; place-items:center;
+  font-family:'Source Serif 4',serif; font-size:15px; font-weight:600;
+}
+.brand b{display:block; font-size:14px; font-weight:600; letter-spacing:-.01em}
+.brand span{display:block; font-size:12px; color:var(--muted)}
+
+.nav{display:flex; flex-direction:column; gap:2px}
+.nav-label{
+  font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted); padding:0 10px; margin-bottom:8px;
+}
+.nav a{
+  display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:9px;
+  font-size:14px; color:var(--ink-2); transition:background .15s, color .15s;
+}
+.nav a:hover{background:var(--line-2)}
+.nav a.active{background:var(--panel); color:var(--ink); font-weight:500; box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.nav svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.6; opacity:.75}
+
+.rail-foot{margin-top:auto; display:flex; flex-direction:column; gap:10px; padding:0 4px}
+.social{display:flex; gap:6px}
+.icon-btn{
+  width:34px; height:34px; border-radius:9px; display:grid; place-items:center;
+  border:1px solid var(--line); background:transparent; color:var(--ink-2);
+  cursor:pointer; transition:background .15s, border-color .15s;
+}
+.icon-btn:hover{background:var(--panel); border-color:var(--muted)}
+.icon-btn svg{width:16px; height:16px}
+.rail-note{font-size:11.5px; color:var(--muted); padding:0 2px}
+
+/* ---------- Main ---------- */
+main{flex:1; min-width:0}
+.topbar{
+  position:sticky; top:0; z-index:20; backdrop-filter:blur(10px);
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom:1px solid var(--line);
+  padding:0 32px; height:56px; display:flex; align-items:center; justify-content:space-between;
+}
+.topbar .crumb{font-size:13px; color:var(--muted); font-family:'JetBrains Mono',monospace}
+.wrap{max-width:840px; margin:0 auto; padding:0 32px 96px}
+
+section{padding-top:72px; scroll-margin-top:56px}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:14px;
+}
+h2{font-size:26px; margin-bottom:14px}
+p{color:var(--ink-2); margin:0 0 14px}
+
+/* ---------- Hero ---------- */
+.hero{padding-top:88px}
+.hero h1{font-size:clamp(34px,5.2vw,50px); margin-bottom:18px}
+.hero h1 em{font-style:normal; color:var(--accent)}
+.hero p.lead{font-size:17px; max-width:60ch}
+
+/* Signature element: contact box styled like a message composer */
+.composer{
+  margin-top:34px; background:var(--panel); border:1px solid var(--line);
+  border-radius:var(--radius); box-shadow:var(--shadow); padding:16px 16px 12px;
+  max-width:560px; transition:border-color .2s, box-shadow .2s;
+}
+.composer:hover{border-color:color-mix(in srgb, var(--accent) 45%, var(--line))}
+.composer .ph{color:var(--muted); font-size:15px; margin:0 0 14px}
+.composer .row{display:flex; align-items:center; justify-content:space-between; gap:12px}
+.chiplet{
+  font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted);
+  border:1px solid var(--line); border-radius:7px; padding:4px 9px;
+}
+.send{
+  display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#fff;
+  border:0; border-radius:9px; padding:9px 15px; font-size:13.5px; font-weight:500;
+  font-family:inherit; cursor:pointer; transition:background .15s;
+}
+.send:hover{background:var(--accent-hover)}
+.send svg{width:14px; height:14px; stroke:#fff; fill:none; stroke-width:2}
+
+/* ---------- Projects ---------- */
+.grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:26px}
+.card{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:20px; display:flex; flex-direction:column; gap:9px;
+  transition:transform .18s ease, border-color .18s, box-shadow .18s;
+}
+.card:hover{transform:translateY(-2px); border-color:color-mix(in srgb, var(--accent) 40%, var(--line)); box-shadow:var(--shadow)}
+.card h3{font-size:17px}
+.card p{font-size:14px; margin:0; color:var(--muted); line-height:1.6}
+.tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px}
+.tag{
+  font-family:'JetBrains Mono',monospace; font-size:11px; padding:3px 8px;
+  border-radius:6px; background:var(--accent-soft); color:var(--accent);
+}
+html[data-theme="dark"] .tag{color:var(--accent-hover)}
+.links{display:flex; gap:14px; margin-top:auto; padding-top:10px; font-size:13px}
+.links a{color:var(--accent); font-weight:500; border-bottom:1px solid transparent; transition:border-color .15s}
+.links a:hover{border-color:currentColor}
+
+/* ---------- Skills ---------- */
+.skills{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:24px}
+.skills h3{font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin-bottom:10px}
+.skills ul{list-style:none; margin:0; padding:0; font-size:14px; color:var(--ink-2)}
+.skills li{padding:3px 0; border-bottom:1px solid var(--line-2)}
+
+/* ---------- Timeline ---------- */
+.timeline{margin-top:24px; border-left:1px solid var(--line); padding-left:24px; display:flex; flex-direction:column; gap:26px}
+.entry{position:relative}
+.entry::before{
+  content:""; position:absolute; left:-29px; top:7px; width:9px; height:9px;
+  border-radius:50%; background:var(--bg); border:2px solid var(--accent);
+}
+.entry .when{font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted)}
+.entry h3{font-family:'Inter',sans-serif; font-size:15.5px; font-weight:600; margin:3px 0 5px}
+.entry p{font-size:14px; margin:0; color:var(--muted)}
+
+/* ---------- Contact ---------- */
+.contact-list{display:flex; flex-direction:column; gap:1px; margin-top:22px; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--line)}
+.contact-list a{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  background:var(--panel); padding:15px 18px; font-size:14.5px; transition:background .15s;
+}
+.contact-list a:hover{background:var(--rail)}
+.contact-list .k{color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:12px}
+footer{margin-top:64px; padding-top:22px; border-top:1px solid var(--line); font-size:12.5px; color:var(--muted)}
+
+/* ---------- Mobile ---------- */
+@media (max-width:900px){
+  body{display:block}
+  .rail{
+    width:auto; height:auto; position:static; flex-direction:row; align-items:center;
+    gap:14px; padding:12px 16px; overflow-x:auto; border-right:0; border-bottom:1px solid var(--line);
+  }
+  .nav{flex-direction:row; gap:4px}
+  .nav-label,.rail-note{display:none}
+  .nav a{padding:6px 11px; white-space:nowrap; font-size:13px}
+  .rail-foot{margin-top:0; margin-left:auto}
+  .topbar{display:none}
+  .wrap{padding:0 20px 72px}
+  .hero{padding-top:44px}
+  .grid,.skills{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important; animation:none !important}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="rail">
+  <div class="brand">
+    <div class="mark"></div>
+    <div>
+      <b>Serkan Ayaşan</b>
+      <span>Computer Engineering</span>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-label">Menu</div>
+    <a href="#About" class="active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>
+      About
+    </a>
+    <a href="#projects">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14l2 2-2 2"/></svg>
+      Projects
+    </a>
+    <a href="#skills">
+      <svg viewBox="0 0 24 24"><path d="M4 18V9M10 18V5M16 18v-6M22 18h-20"/></svg>
+      Skills
+    </a>
+    <a href="#background">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+      Education &amp; Experience
+    </a>
+    <a href="#contact">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+      Contact
+    </a>
+  </nav>
+
+  <div class="rail-foot">
+    <div class="social">
+      <!-- Swap in your own profiles -->
+      <a class="icon-btn" href="https://github.com/sayasann" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+      </a>
+      <a class="icon-btn" href="https://linkedin.com/in/serkan-ayasan" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a1.94 1.94 0 11-3.88 0 1.94 1.94 0 013.88 0zM3.5 8.5h3.9V21H3.5zM10.2 8.5h3.74v1.71h.05c.52-.94 1.79-1.93 3.68-1.93 3.94 0 4.67 2.5 4.67 5.76V21h-3.9v-5.36c0-1.28-.02-2.93-1.83-2.93-1.83 0-2.11 1.4-2.11 2.84V21h-3.9z"/></svg>
+      </a>
+      <button class="icon-btn" id="themeBtn" aria-label="Switch theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 13.5A8 8 0 1110.5 4a6.5 6.5 0 009.5 9.5z"/></svg>
+      </button>
+    </div>
+    <div class="rail-note">© <span id="year">2026</span> · Istanbul</div>
+  </div>
+</aside>
+
+<!-- ============ CONTENT ============ -->
+<main>
+  <div class="topbar">
+    <span class="crumb" id="crumb">About</span>
+    <!-- Put your CV in the repo as cv.pdf and this link works -->
+    <a class="chiplet" href="cv.pdf" target="_blank" rel="noopener">Download CV ↓</a>
+  </div>
+
+  <div class="wrap">
+
+    <!-- ABOUT -->
+    <section id="about" class="hero">
+      <h1>Hi, I'm Serkan Ayaşan.<br>I like <em>designing and building</em> software.</h1>
+      <p class="lead">
+        I'm a fourth-year computer engineering student at Dokuz Eylül University.
+  I care most about backend and cloud development. Right now I'm focused on
+  becoming an AWS cloud developer — learning the core services and building
+  things on top of them.
+</p>
+      </p>
+      <p class="lead">
+        I'm open to internships and new-grad roles. Below is what I've been building.
+      </p>
+
+      <!-- Signature element: composer-style contact box -->
+      <div class="composer">
+        <p class="ph">Want to talk about a project or a role?</p>
+        <div class="row">
+          <span class="chiplet">replies within ~1 day</span>
+          <a class="send" href="mailto:[ayasanserkan@gmail.com]">
+            Send a message
+            <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="eyebrow">Selected work</div>
+      <h2>Projects</h2>
+      <p>Each one started as a way to learn something. All the code is on GitHub.</p>
+
+      <div class="grid">
+        <!-- ↓ Copy this block to add another project -->
+        <article class="card">
+          <h3>Genesys-Cloud-Reporting-Tool</h3>
+          <p>Spring Boot batch tool that fetches Genesys Cloud queue/agent/conversation data via API and outputs an Excel report.</p>
+          <div class="tags"><span class="tag">Java</span><span class="tag">Spring</span></div>
+          <div class="links">
+            <a href="https://github.com/sayasann/Genesys-Cloud-Reporting-Tool" target="_blank" rel="noopener">Source</a>
+          </div>
+        </article>
+
+        <article class="card">
+  <h3>Apartment Dues &amp; Messaging Platform</h3>
+  <p>A management system for apartment buildings: tracks monthly dues and payments per
+     unit, and includes a messaging platform so residents and the building manager can
+     communicate in one place.</p>
+  <div class="tags">
+    <span class="tag">Spring Boot</span><span class="tag">MSSQL</span><span class="tag">Redis</span>
+    <span class="tag">RabbitMQ</span><span class="tag">Docker</span><span class="tag">React</span>
+  </div>
+  <div class="links">
+    <span class="chiplet">In progress · private repo</span>
+  </div>
+</article>
+
+        <article class="card">
+          <h3>Genesys-Customer-Lookup-Web-Service</h3>
+          <p>A REST service that Genesys Cloud IVR flows call mid-conversation to look up a
+     customer by phone number or ID. The response feeds routing decisions and screen
+     pops, so agents see the caller's record before they pick up.</p>
+          <div class="tags"><span class="tag">Java | SpringBoot</span><span class="tag">MSSQL</span></div>
+          <div class="links">
+            <a href="https://github.com/sayasann/genesys-customer-lookup-service" target="_blank" rel="noopener">Source</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>NextStop-Smart-Transit</h3>
+          <p>NextStop is a comprehensive IoT (Internet of Things) project that digitizes the communication between public transport vehicles and transit stations.</p>
+          <div class="tags"><span class="tag">C++, Java</span><span class="tag">Spring</span><span class="tag">MSSQL</span><span class="tag">ESP32</span><span class="tag">MQTT Broker</span></div>
+          <div class="links">
+            <a href="https://github.com/sayasann/NextStop-Smart-Transit" target="_blank" rel="noopener">Source</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="eyebrow">Toolkit</div>
+      <h2>Skills</h2>
+      <div class="skills">
+        <div>
+          <h3>Languages</h3>
+          <ul><li>Java / C#</li><li>Python</li><li>C</li><li>SQL</li></ul>
+        </div>
+        <div>
+          <h3>Technologies</h3>
+          <ul><li>Spring, SpringBoot</li><li>MSSQL, Redis, RabbitMQ, MQTT Broker</li><li>Docker</li><li>Git, Postman</li></ul>
+        </div>
+        <div>
+          <h3>Fundamentals</h3>
+          <ul><li>Software Engineering</li><li>Data Structures &amp; Algorithms</li><li>Operating Systems</li><li>Database Systems</li><li>Datta Communication and Network</li><li>Object-Oriented Design</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION & EXPERIENCE -->
+    <section id="background">
+      <div class="eyebrow">Timeline</div>
+      <h2>Education &amp; Experience</h2>
+      <div class="timeline">
+        <div class="entry">
+          <div class="when">[06.2026 — 08.2026]</div>
+          <h3>[CCR Group] · Software Engineering/Cloud Intern</h3>
+          <p>Worked on the Genesys Cloud contact center platform: wrote web services,
+     built integrations with internal and third-party systems, and designed
+     IVR call flows.</p>
+        </div>
+        <div class="entry">
+          <div class="when">[2023 — 2027]</div>
+          <h3>[Dokuz Eylul University] · BSc Computer Engineering</h3>
+          
+        </div>
+        <div class="entry">
+          <div class="when">[2010 — 2016]</div>
+          <h3>[Primary&Middle School]</h3>
+          <p>Moscow</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="eyebrow">Contact</div>
+      <h2>Let's talk</h2>
+      <p>Email gets the fastest reply.</p>
+      <div class="contact-list">
+        <a href="mailto:ayasanserkan@gmail.com"><span>ayasanserkan@gmail.com</span><span class="k">email</span></a>
+        <a href="https://github.com/sayasann" target="_blank" rel="noopener"><span>github.com/sayasann</span><span class="k">github</span></a>
+        <a href="https://linkedin.com/in/serkan-ayasan target="_blank" rel="noopener"><span>linkedin.com/in/serkan-ayasan</span><span class="k">linkedin</span></a>
+      </div>
+      <footer>Hand-written in HTML and CSS, hosted on GitHub Pages.</footer>
+    </section>
+
+  </div>
+</main>
+
+<script>
+// Year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Theme: follows the system setting, toggled by the button.
+// Note: once the site is live you can add localStorage here to remember
+// the choice (it won't work inside the preview).
+var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+function applyTheme(){ document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light'); }
+applyTheme();
+document.getElementById('themeBtn').addEventListener('click', function(){ dark = !dark; applyTheme(); });
+
+// Highlight the section you're reading
+var links = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+var crumb = document.getElementById('crumb');
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(!e.isIntersecting) return;
+    links.forEach(function(a){
+      var on = a.getAttribute('href') === '#' + e.target.id;
+      a.classList.toggle('active', on);
+      if(on) crumb.textContent = a.textContent.trim().toLowerCase();
+    });
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+document.querySelectorAll('section').forEach(function(s){ obs.observe(s); });
+</script>
+</body>
+</html>
